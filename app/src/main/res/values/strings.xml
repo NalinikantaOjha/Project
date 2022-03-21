@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">eKartApp</string>
+    <string name="e_kart">E kart</string>
+    <string name="search_your_products_here">Search your products here</string>
 </resources>
