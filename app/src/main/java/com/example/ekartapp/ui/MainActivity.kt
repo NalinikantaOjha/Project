@@ -5,42 +5,40 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.ekartapp.R
-import com.example.ekartapp.adapter.OnClick
 import com.example.ekartapp.adapter.PostAdapter
+import com.example.ekartapp.adapter.iterface.OnClick
+import com.example.ekartapp.adapter.iterface.OnEdit
 import com.example.ekartapp.data.ResponseClass
 import com.example.ekartapp.retrofitresponse.Status
 import com.example.ekartapp.viewmodel.ProjectViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import org.json.JSONArray
 import org.json.JSONException
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() ,OnClick{
+class MainActivity : AppCompatActivity() , OnClick ,OnEdit{
     private val viewModel by viewModels<ProjectViewModel>()
     private val responseClassList = mutableListOf<ResponseClass>()
+    private val responseClassListServer = mutableListOf<ResponseClass>()
     private var postAdapter: PostAdapter? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        Log.d("nalini",responseClassList.size.toString())
         viewModel.openTheConnection()
-        viewModel.delete()
         viewModel.user.observe(this) {
             when (it.status) {
                 Status.SUCCESS -> { buildResponseData(it.data) }
                 Status.ERROR -> { startActivity(Intent(this,ErrorActivity::class.java)) }
             }
-            setRecyclerAdapter() }
+        }
 
         searchView.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
@@ -48,17 +46,22 @@ class MainActivity : AppCompatActivity() ,OnClick{
             override fun afterTextChanged(s: Editable) { filterCollection(s.toString()) }
         })
 
-    }
+        btnAdd.setOnClickListener {
+            startActivity(Intent(this,AddActivity::class.java))
+        }
+
+   }
 
 
 
         private fun setRecyclerAdapter() {
-
-        postAdapter = PostAdapter(this)
+        postAdapter = PostAdapter(this,this)
             postAdapter!!.setData(responseClassList)
         val layoutManager = GridLayoutManager(this,2)
         recyclerView.layoutManager = layoutManager
-        recyclerView.adapter = postAdapter}
+        recyclerView.adapter = postAdapter
+        Progressbar.visibility= View.GONE}
+
 
 
 
@@ -81,23 +84,28 @@ class MainActivity : AppCompatActivity() ,OnClick{
                 val rate=eachJsonObject.getJSONObject("rating")
                 val rateing=rate.getDouble("rate")
                 val count=rate.getInt("count")
-                val responseClass= ResponseClass(id,title,image,price, desc,rateing,count)
-                responseClassList.add(responseClass)
-
+                val category=eachJsonObject.getString("category")
+                val responseClass= ResponseClass(id,title,image,price, desc,rateing,count,category
+                )
+                responseClassListServer.add(responseClass)
             }
+            viewModel.addAllProduct(responseClassListServer)
         } catch (e: JSONException) {
             e.printStackTrace()
         }
-        CoroutineScope(Dispatchers.IO).launch {
-
+        Log.d("nalinidatafromroom","it.size.toString()")
+        viewModel.userResponse.observe(this) {
+            Log.d("nalinidatafromroom", it.size.toString())
+            responseClassList.clear()
+            responseClassList.addAll(it)
+            setRecyclerAdapter()
         }
-
     }
 
     private fun filterCollection(name: String) {
-        var list= mutableListOf<ResponseClass>()
+        val list= mutableListOf<ResponseClass>()
         for (title in responseClassList) {
-            if ( title.title.toLowerCase().contains(name.toLowerCase())){
+            if ( title.title.lowercase().contains(name.lowercase())){
                 list.add(title)
             }
         }
@@ -109,6 +117,12 @@ class MainActivity : AppCompatActivity() ,OnClick{
             postAdapter?.setData(list)
         }
     }
+
+    override fun onEditProduct(responseClass: ResponseClass) {
+     val intent=Intent(this,AddActivity::class.java)
+        intent.putExtra("responseClass",responseClass)
+        startActivity(intent)
+         }
 }
 
 /*

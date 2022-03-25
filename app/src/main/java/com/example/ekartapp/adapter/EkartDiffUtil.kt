@@ -1,9 +1,10 @@
 package com.example.ekartapp.adapter
 
+import android.util.Log
 import androidx.recyclerview.widget.DiffUtil
 import com.example.ekartapp.data.ResponseClass
 
-class EkartDiffUtil(val oldList:MutableList<ResponseClass>,val newList:MutableList<ResponseClass>):DiffUtil.Callback() {
+class EkartDiffUtil(private val oldList:MutableList<ResponseClass>, private val newList:MutableList<ResponseClass>):DiffUtil.Callback() {
     override fun getOldListSize(): Int {
         return oldList.size
     }
@@ -12,14 +13,14 @@ class EkartDiffUtil(val oldList:MutableList<ResponseClass>,val newList:MutableLi
 return newList.size   }
 
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-return oldList[oldItemPosition].id==newList[newItemPosition].id   }
+        Log.d("check","areItemsTheSame call")
+return oldList[oldItemPosition].id==newList[newItemPosition].id
+  }
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        return when{
-            oldList[oldItemPosition].id==newList[newItemPosition].id->{
-                false
-            }
-                else->true
-        }
+        Log.d("check","areContentsTheSame ")
+
+        return oldList[oldItemPosition].id==newList[newItemPosition].id
+
     }
 }

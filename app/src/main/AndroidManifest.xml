@@ -13,6 +13,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EKartApp">
         <activity
+            android:name=".ui.EditActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.AddActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.ErrorActivity"
             android:exported="false" />
         <activity

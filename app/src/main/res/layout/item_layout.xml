@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="250dp"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+android:padding="15dp"
     android:layout_margin="5dp"
     android:id="@+id/cCardView"
     android:elevation="10dp">
@@ -11,18 +12,28 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-<ImageView
-    app:layout_constraintTop_toTopOf="parent"
-    android:layout_width="match_parent"
-    android:id="@+id/ivImageView"
-    android:layout_height="180dp">
 
-</ImageView>
+<!--<ImageView-->
+<!--    app:layout_constraintTop_toTopOf="parent"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:id="@+id/ivImageView"-->
+<!--    android:layout_height="180dp">-->
 
+<!--</ImageView>-->
+        <ImageView
+            app:layout_constraintStart_toStartOf="parent"
+            android:id="@+id/ivImageView2"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:padding="5dp"
+            android:src="@drawable/img"
+            app:layout_constraintTop_toTopOf="parent"
+            />
         <TextView
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ivImageView"
+            app:layout_constraintTop_toBottomOf="@+id/ivImageView2"
             android:id="@+id/tvTitle"
+            android:layout_marginLeft="10dp"
             android:textColor="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
@@ -32,10 +43,26 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvTitle"
             android:id="@+id/tvPrice"
+            android:layout_marginTop="10dp"
             android:textColor="@color/black"
             android:textStyle="bold"
+android:layout_marginBottom="100dp"
+            android:layout_marginLeft="10dp"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
              />
+        <ImageView
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle"
+            android:layout_marginBottom="100dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:paddingRight="10dp"
+            android:src="@drawable/ic_baseline_edit_24"
+            android:id="@+id/ivEdit"
+            android:layout_height="wrap_content">
+
+        </ImageView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

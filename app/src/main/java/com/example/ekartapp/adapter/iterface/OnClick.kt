@@ -1,4 +1,4 @@
-package com.example.ekartapp.adapter
+package com.example.ekartapp.adapter.iterface
 
 import com.example.ekartapp.data.ResponseClass
 
