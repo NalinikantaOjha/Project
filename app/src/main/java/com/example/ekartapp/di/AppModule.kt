@@ -2,8 +2,8 @@ package com.example.ekartapp.di
 
 import android.app.Application
 import android.content.Context
-import com.example.ekartapp.local.ProductDao
-import com.example.ekartapp.local.ProductDatabase
+import com.example.ekartapp.data.local.ProductDao
+import com.example.ekartapp.data.local.ProductDatabase
 
 
 import dagger.Module
@@ -19,7 +19,7 @@ class AppModule  {
 
     @Provides
     @Singleton
-    fun providesUserDatabase( context: Application):ProductDatabase{
+    fun providesUserDatabase( context: Application): ProductDatabase {
         return ProductDatabase.getContactDatabase(context)
     }
     @Provides
@@ -29,7 +29,7 @@ class AppModule  {
     }
     @Provides
     @Singleton
-    fun providesDao(productDatabase: ProductDatabase):ProductDao{
+    fun providesDao(productDatabase: ProductDatabase): ProductDao {
         return productDatabase.getDao()
     }
 

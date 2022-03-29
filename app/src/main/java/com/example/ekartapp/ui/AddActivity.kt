@@ -5,24 +5,18 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
-import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
 import com.bumptech.glide.Glide
 import com.example.ekartapp.R
-import com.example.ekartapp.data.ResponseClass
-import com.example.ekartapp.viewmodel.ProjectViewModel
-import dagger.hilt.android.AndroidEntryPoint
+import com.example.ekartapp.ui.base.BaseActivity
+import com.example.ekartapp.data.model.ResponseClass
 import kotlinx.android.synthetic.main.activity_add.*
 
-@AndroidEntryPoint
-class AddActivity : AppCompatActivity() {
+class AddActivity : BaseActivity() {
     private lateinit var uri: Uri
     private val responseClassListServer = mutableListOf<ResponseClass>()
-    private val viewModel by viewModels<ProjectViewModel>()
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add)
+    override fun provideLayoutId(): Int =R.layout.activity_add
+    override fun setupView(savedInstanceState: Bundle?) {
         val intent=intent
         val response=intent.getParcelableExtra<ResponseClass>("responseClass")
         viewModel.userResponse.observe(this) {
@@ -42,12 +36,13 @@ class AddActivity : AppCompatActivity() {
         uploadBtn.setOnClickListener {
             if (response!=null){
                 viewModel.put(response.id,etTitle.text.toString(),etItemPrice.text.toString().toDouble(),itemDescription.text.toString(),etCatagory.text.toString(),response.image,response.rate,response.count)
-                val responseClass=ResponseClass(response.id,etTitle.text.toString(),uri.toString(),etItemPrice.text.toString().toDouble(),itemDescription.text.toString(),response.price.toString().toDouble(),response.count,etCatagory.text.toString()
-                )
+                val responseClass=
+                    ResponseClass(response.id,etTitle.text.toString(),uri.toString(),etItemPrice.text.toString().toDouble(),itemDescription.text.toString(),response.price.toString().toDouble(),response.count,etCatagory.text.toString()
+                    )
                 viewModel.update(responseClass)
             }else{
                 viewModel.post(etTitle.text.toString(),etItemPrice.text.toString().toDouble(),itemDescription.text.toString(),etCatagory.text.toString(),uri.toString(),3.4,100)
-                val responseClass=ResponseClass(responseClassListServer.size+1,etTitle.text.toString(),uri.toString(),etItemPrice.text.toString().toDouble(),itemDescription.text.toString(),3.4,100,etCatagory.text.toString())
+                val responseClass= ResponseClass(responseClassListServer.size+1,etTitle.text.toString(),uri.toString(),etItemPrice.text.toString().toDouble(),itemDescription.text.toString(),3.4,100,etCatagory.text.toString())
                 viewModel.addProduct(responseClass)
             }
 
@@ -55,7 +50,7 @@ class AddActivity : AppCompatActivity() {
         itemImage.setOnClickListener {
             selectImage()
         }
-        }
+    }
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

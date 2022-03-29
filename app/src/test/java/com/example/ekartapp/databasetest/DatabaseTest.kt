@@ -2,8 +2,8 @@ package com.example.ekartapp.databasetest
 
 import android.content.Context
 import androidx.room.Room
-import com.example.ekartapp.local.ProductDao
-import com.example.ekartapp.local.ProductDatabase
+import com.example.ekartapp.data.local.ProductDao
+import com.example.ekartapp.data.local.ProductDatabase
 import com.google.common.truth.Truth
 import io.mockk.MockKAnnotations
 import io.mockk.every

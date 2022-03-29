@@ -1,8 +1,8 @@
 package com.example.ekartapp.viewmodeltest
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.example.ekartapp.data.ResponseClass
-import com.example.ekartapp.repository.ProjectRepository
+import com.example.ekartapp.data.model.ResponseClass
+import com.example.ekartapp.data.repository.ProjectRepository
 import com.example.ekartapp.viewmodel.ProjectViewModel
 import com.google.common.truth.Truth
 import io.mockk.MockKAnnotations
@@ -23,7 +23,7 @@ class ViewModelTest {
     lateinit var repository: ProjectRepository
     private lateinit var viewModel:ProjectViewModel
      @MockK
-    lateinit var  product:ResponseClass
+    lateinit var  product: ResponseClass
     @MockK
     lateinit var  productList:MutableList<ResponseClass>
     @Before

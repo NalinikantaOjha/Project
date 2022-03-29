@@ -4,34 +4,26 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.ekartapp.R
-import com.example.ekartapp.adapter.PostAdapter
-import com.example.ekartapp.adapter.iterface.OnClick
-import com.example.ekartapp.adapter.iterface.OnEdit
-import com.example.ekartapp.data.ResponseClass
+import com.example.ekartapp.data.model.ResponseClass
 import com.example.ekartapp.retrofitresponse.Status
-import com.example.ekartapp.viewmodel.ProjectViewModel
-import dagger.hilt.android.AndroidEntryPoint
+import com.example.ekartapp.ui.adapter.PostAdapter
+import com.example.ekartapp.ui.adapter.iterface.OnClick
+import com.example.ekartapp.ui.adapter.iterface.OnEdit
+import com.example.ekartapp.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONArray
 import org.json.JSONException
 
-@AndroidEntryPoint
-class MainActivity : AppCompatActivity() , OnClick ,OnEdit{
-    private val viewModel by viewModels<ProjectViewModel>()
+class MainActivity : BaseActivity() , OnClick ,OnEdit{
     private val responseClassList = mutableListOf<ResponseClass>()
     private val responseClassListServer = mutableListOf<ResponseClass>()
     private var postAdapter: PostAdapter? = null
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
+    override fun provideLayoutId(): Int =R.layout.activity_main
+    override fun setupView(savedInstanceState: Bundle?) {
         viewModel.openTheConnection()
         viewModel.user.observe(this) {
             when (it.status) {
@@ -49,12 +41,10 @@ class MainActivity : AppCompatActivity() , OnClick ,OnEdit{
         btnAdd.setOnClickListener {
             startActivity(Intent(this,AddActivity::class.java))
         }
-
-   }
-
+    }
 
 
-        private fun setRecyclerAdapter() {
+    private fun setRecyclerAdapter() {
         postAdapter = PostAdapter(this,this)
             postAdapter!!.setData(responseClassList)
         val layoutManager = GridLayoutManager(this,2)
@@ -93,9 +83,7 @@ class MainActivity : AppCompatActivity() , OnClick ,OnEdit{
         } catch (e: JSONException) {
             e.printStackTrace()
         }
-        Log.d("nalinidatafromroom","it.size.toString()")
         viewModel.userResponse.observe(this) {
-            Log.d("nalinidatafromroom", it.size.toString())
             responseClassList.clear()
             responseClassList.addAll(it)
             setRecyclerAdapter()
@@ -113,7 +101,6 @@ class MainActivity : AppCompatActivity() , OnClick ,OnEdit{
             val toast= Toast.makeText(this,"No product  found", Toast.LENGTH_LONG)
             toast.show()
         }else{
-           // postAdapter?.FILTER(list)
             postAdapter?.setData(list)
         }
     }
@@ -124,15 +111,3 @@ class MainActivity : AppCompatActivity() , OnClick ,OnEdit{
         startActivity(intent)
          }
 }
-
-/*
-"id":1,"title":"Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops","price":109.95,
-"description":"Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday",
-"category":"men's clothing","image":"https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
-"rating":{"rate":3.9,"count":120}
-
-{"id":1,"title":"Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops","price":109.95,
-"description":"Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday",
-"category":"men's clothing","image":"https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
-"rating":{"rate":3.9,"count":120}}
- */

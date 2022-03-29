@@ -1,4 +1,4 @@
-package com.example.ekartapp.hiltContainer
+package com.example.ekartapp
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

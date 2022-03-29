@@ -1,15 +1,15 @@
-package com.example.ekartapp.local
+package com.example.ekartapp.data.local
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.example.ekartapp.data.ResponseClass
+import com.example.ekartapp.data.model.ResponseClass
 
 @Dao
 interface ProductDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend    fun addAllProducts(listOfProduct:List<ResponseClass>)
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addProduct(product:ResponseClass)
+    suspend fun addProduct(product: ResponseClass)
     @Query( "select * from ResponseClass")
     fun getAllProduct():LiveData<List<ResponseClass>>
     @Query( "delete from ResponseClass")

@@ -1,18 +1,18 @@
-package com.example.ekartapp.local
+package com.example.ekartapp.data.local
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.ekartapp.data.ResponseClass
+import com.example.ekartapp.data.model.ResponseClass
 
 @Database(entities = [ResponseClass::class],version = 1)
 abstract class ProductDatabase : RoomDatabase() {
-    abstract fun getDao():ProductDao
+    abstract fun getDao(): ProductDao
     companion object{
-        private var instance:ProductDatabase?=null
-        fun getContactDatabase(context: Context):ProductDatabase{
-            if (instance!=null){
+        private var instance: ProductDatabase?=null
+        fun getContactDatabase(context: Context): ProductDatabase {
+            if (instance !=null){
                 return instance!!
             }else{
                 val builder= Room.databaseBuilder(
@@ -21,7 +21,7 @@ abstract class ProductDatabase : RoomDatabase() {
                     "productDb"
                 )
                 builder.fallbackToDestructiveMigration()
-                instance=builder.build()
+                instance =builder.build()
             }
             return instance!!
         }

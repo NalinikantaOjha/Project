@@ -1,8 +1,8 @@
 package com.example.ekartapp.repositorytest
 
-import com.example.ekartapp.data.ResponseClass
-import com.example.ekartapp.local.ProductDao
-import com.example.ekartapp.repository.ProjectRepository
+import com.example.ekartapp.data.model.ResponseClass
+import com.example.ekartapp.data.local.ProductDao
+import com.example.ekartapp.data.repository.ProjectRepository
 import com.google.common.truth.Truth.assertThat
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
@@ -14,10 +14,10 @@ import org.junit.Test
 
 class RepositoryTest {
     @MockK
-   lateinit var dao:ProductDao
-    private lateinit var repository:ProjectRepository
+   lateinit var dao: ProductDao
+    private lateinit var repository: ProjectRepository
     @MockK
-    lateinit var product:ResponseClass
+    lateinit var product: ResponseClass
     @MockK var productlist= mutableListOf<ResponseClass>()
 
     @Before

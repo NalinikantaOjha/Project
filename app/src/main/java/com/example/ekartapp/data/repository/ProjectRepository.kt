@@ -1,10 +1,10 @@
-package com.example.ekartapp.repository
+package com.example.ekartapp.data.repository
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.ekartapp.data.ResponseClass
-import com.example.ekartapp.local.ProductDao
+import com.example.ekartapp.data.model.ResponseClass
+import com.example.ekartapp.data.local.ProductDao
 import com.example.ekartapp.retrofitresponse.Resource
 import com.example.ekartapp.retrofitresponse.ResponseHandler
 import kotlinx.coroutines.CoroutineScope
@@ -31,7 +31,7 @@ class ProjectRepository @Inject constructor (val productDao: ProductDao){
     suspend fun addAllProduct(list:List<ResponseClass>){
         productDao.addAllProducts(list)
     }
-    suspend fun addProduct(list:ResponseClass){
+    suspend fun addProduct(list: ResponseClass){
         productDao.addProduct(list)
     }
     suspend fun deleteAll(){

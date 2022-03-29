@@ -1,4 +1,4 @@
-package com.example.ekartapp.data
+package com.example.ekartapp.data.model
 
 import android.os.Parcelable
 import androidx.room.Entity

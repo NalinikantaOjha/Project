@@ -1,8 +1,8 @@
-package com.example.ekartapp.adapter
+package com.example.ekartapp.ui.adapter
 
 import android.util.Log
 import androidx.recyclerview.widget.DiffUtil
-import com.example.ekartapp.data.ResponseClass
+import com.example.ekartapp.data.model.ResponseClass
 
 class EkartDiffUtil(private val oldList:MutableList<ResponseClass>, private val newList:MutableList<ResponseClass>):DiffUtil.Callback() {
     override fun getOldListSize(): Int {

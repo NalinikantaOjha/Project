@@ -4,8 +4,8 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.ekartapp.data.ResponseClass
-import com.example.ekartapp.repository.ProjectRepository
+import com.example.ekartapp.data.model.ResponseClass
+import com.example.ekartapp.data.repository.ProjectRepository
 import com.example.ekartapp.retrofitresponse.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers

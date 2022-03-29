@@ -1,11 +1,11 @@
-package com.example.ekartapp.adapter
+package com.example.ekartapp.ui.adapter
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.ekartapp.adapter.iterface.OnClick
-import com.example.ekartapp.adapter.iterface.OnEdit
-import com.example.ekartapp.data.ResponseClass
+import com.example.ekartapp.ui.adapter.iterface.OnClick
+import com.example.ekartapp.ui.adapter.iterface.OnEdit
+import com.example.ekartapp.data.model.ResponseClass
 import kotlinx.android.synthetic.main.item_layout.view.*
 
 class PostViewHolder(itemView:View, private val onClick: OnClick, private val onEdit: OnEdit):RecyclerView.ViewHolder(itemView) {
